@@ -5,6 +5,7 @@ pygame.init()
 
 # Game Colors
 bg_color = pygame.Color('grey12')
+light_grey = (200,200,200)
 
 # Game Variables
 screen_width = 500
@@ -26,5 +27,6 @@ while True:
 
     # Screen visualizer
     screen.fill(bg_color)
+    pygame.draw.line(screen, light_grey, [0, 38], [800, 38], 2)
 
     clock.tick(60)
