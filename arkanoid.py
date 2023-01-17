@@ -77,10 +77,15 @@ row5_color = (255, 195, 0)
 # Game Variables
 screen_width = 500
 screen_height = 1000
+game_active = True
+score = 0
 
 # Game Window
 screen = pygame.display.set_mode((screen_width,screen_height))
 pygame.display.set_caption("Arkanoid")
+
+# Game Font
+font = pygame.font.Font('Pixeltype.ttf', 35)
 
 # All sprite group
 all_enemy_list = pygame.sprite.Group()
@@ -136,7 +141,7 @@ all_enemy_list.add(block)
 all_enemy_list.add(ball)
 
 # Game Loop
-while True:
+while game_active:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             pygame.quit()
@@ -163,9 +168,26 @@ while True:
         ball.rect.y -= ball.speed[1]
         ball.bounce()
 
+    enemy_collision_list = pygame.sprite.spritecollide(ball,enemy_blocks,False)
+    for enemy in enemy_collision_list:
+      ball.bounce()
+      score += 1
+      enemy.kill()
+      if len(enemy_blocks) == 0:
+            victory_royale_font = pygame.font.Font('Pixeltype.ttf', 100)
+            text = victory_royale_font.render("You Won!", 1, light_grey)
+            screen.blit(text, (100,500))
+            pygame.display.flip()
+            pygame.time.wait(3000)
+            game_active = False
+
     # Screen visualizer
     screen.fill(bg_color)
     pygame.draw.line(screen, light_grey, [0, 38], [800, 38], 2)
+
+    # Score
+    text = font.render("Score: " + str(score), 1, light_grey)
+    screen.blit(text, (20,10))
 
     # Block + Ball Visualizer
     all_enemy_list.draw(screen)
