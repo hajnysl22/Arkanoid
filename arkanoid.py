@@ -61,13 +61,14 @@ class Enemy(pygame.sprite.Sprite):
         pygame.draw.rect(self.image, color, [0, 0, width, height])
 
         self.rect = self.image.get_rect()
-        
+
 # Setup
 pygame.init()
 
 # Game Colors
 bg_color = pygame.Color('grey12')
 light_grey = (200,200,200)
+row1_color = (88, 24, 69)
 
 # Game Variables
 screen_width = 500
@@ -89,6 +90,15 @@ block.rect.y = 900
 ball = Ball(light_grey,20,20)
 ball.rect.x = 250
 ball.rect.y = 880
+
+enemy_blocks = pygame.sprite.Group()
+for i in range(5):
+    enemy = Enemy(row1_color,85,15)
+    enemy.rect.x = 13 + i* 95
+    enemy.rect.y = 60
+    all_enemy_list.add(enemy)
+    enemy_blocks.add(enemy)
+
 
 # FPS
 clock = pygame.time.Clock()
