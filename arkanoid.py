@@ -3,6 +3,10 @@ import pygame
 # Setup
 pygame.init()
 
+# Game Colors
+bg_color = pygame.Color('grey12')
+
+# Game Variables
 screen_width = 500
 screen_height = 1000
 
@@ -19,5 +23,8 @@ while True:
         if event.type == pygame.QUIT:
             pygame.quit()
             exit()
+
+    # Screen visualizer
+    screen.fill(bg_color)
 
     clock.tick(60)
