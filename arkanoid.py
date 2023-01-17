@@ -29,4 +29,6 @@ while True:
     screen.fill(bg_color)
     pygame.draw.line(screen, light_grey, [0, 38], [800, 38], 2)
 
+    # Updating
+    pygame.display.flip()
     clock.tick(60)
