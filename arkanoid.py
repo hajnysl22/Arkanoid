@@ -2,7 +2,7 @@ import pygame
 from random import randint
 import random
 
-# Class
+# Classes
 class Block(pygame.sprite.Sprite):
     def __init__(self, color, width, height):
         transparent = (0,0,0)
@@ -49,6 +49,19 @@ class Ball(pygame.sprite.Sprite):
         self.speed[0] = -self.speed[0]
         self.speed[1] = randint(-7,7)
 
+class Enemy(pygame.sprite.Sprite):
+    def __init__(self, color, width, height):
+        super().__init__()
+        transparent = (0,0,0)
+
+        self.image = pygame.Surface([width, height])
+        self.image.fill(transparent)
+        self.image.set_colorkey(transparent)
+ 
+        pygame.draw.rect(self.image, color, [0, 0, width, height])
+
+        self.rect = self.image.get_rect()
+        
 # Setup
 pygame.init()
 
