@@ -79,6 +79,7 @@ screen_width = 500
 screen_height = 1000
 game_active = True
 score = 0
+lives = 3
 
 # Game Window
 screen = pygame.display.set_mode((screen_width,screen_height))
@@ -153,12 +154,28 @@ while game_active:
     if keys[pygame.K_RIGHT]:
         block.moveRight(4)
 
+    # Game Logic 
+    all_enemy_list.update()
+
+    
+
     if ball.rect.x>=480:
         ball.speed[0] = -ball.speed[0]
     if ball.rect.x<=0:
         ball.speed[0] = -ball.speed[0]
     if ball.rect.y>screen_height:
         ball.speed[1] = -ball.speed[1]
+        lives -= 1
+
+        # Game Over
+        if lives == 0:
+            game_over_font = pygame.font.Font('Pixeltype.ttf', 100)
+            text = game_over_font.render("GAME OVER", 1, light_grey)
+            screen.blit(text, (100,500))
+            pygame.display.flip()
+            pygame.time.wait(3000)
+            game_active = False
+            
     if ball.rect.y<40:
         ball.speed[1] = -ball.speed[1]
 
