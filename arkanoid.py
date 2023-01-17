@@ -1,4 +1,6 @@
 import pygame
+from random import randint
+import random
 
 # Class
 class Block(pygame.sprite.Sprite):
@@ -24,6 +26,29 @@ class Block(pygame.sprite.Sprite):
         if self.rect.x >= 400:
           self.rect.x = 400
 
+class Ball(pygame.sprite.Sprite): 
+    def __init__(self, color, screen_width, screen_height):
+        super().__init__()
+        transparent = (0,0,0)
+
+        self.image = pygame.Surface([screen_width, screen_height])
+        self.image.fill(transparent)
+        self.image.set_colorkey(transparent)
+ 
+        pygame.draw.ellipse(self.image, color, [0, 0, screen_width, screen_height])
+        
+        self.speed = [7 * random.choice((1,-1)),7]
+
+        self.rect = self.image.get_rect()
+        
+    def update(self):
+        self.rect.x += self.speed[0]
+        self.rect.y += self.speed[1]
+          
+    def bounce(self):
+        self.speed[0] = -self.speed[0]
+        self.speed[1] = randint(-7,7)
+
 # Setup
 pygame.init()
 
@@ -47,11 +72,17 @@ block = Block(light_grey, 100, 15)
 block.rect.x = screen_width / 2 - 40
 block.rect.y = 900
 
+# Ball
+ball = Ball(light_grey,20,20)
+ball.rect.x = 250
+ball.rect.y = 880
+
 # FPS
 clock = pygame.time.Clock()
 
-# Adding block to list
+# Adding block + ball to list
 all_enemy_list.add(block)
+all_enemy_list.add(ball)
 
 # Game Loop
 while True:
@@ -66,11 +97,26 @@ while True:
     if keys[pygame.K_RIGHT]:
         block.moveRight(4)
 
+    if ball.rect.x>=480:
+        ball.speed[0] = -ball.speed[0]
+    if ball.rect.x<=0:
+        ball.speed[0] = -ball.speed[0]
+    if ball.rect.y>screen_height:
+        ball.speed[1] = -ball.speed[1]
+    if ball.rect.y<40:
+        ball.speed[1] = -ball.speed[1]
+
+    # Ball bounce
+    if pygame.sprite.collide_mask(ball, block):
+        ball.rect.x -= ball.speed[0]
+        ball.rect.y -= ball.speed[1]
+        ball.bounce()
+
     # Screen visualizer
     screen.fill(bg_color)
     pygame.draw.line(screen, light_grey, [0, 38], [800, 38], 2)
 
-    # Block Visualizer
+    # Block + Ball Visualizer
     all_enemy_list.draw(screen)
 
     # Updating
