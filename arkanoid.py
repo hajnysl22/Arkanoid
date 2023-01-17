@@ -69,6 +69,10 @@ pygame.init()
 bg_color = pygame.Color('grey12')
 light_grey = (200,200,200)
 row1_color = (88, 24, 69)
+row2_color = (144, 12, 63)
+row3_color = (199, 0 , 57)
+row4_color = (255, 87, 51)
+row5_color = (255, 195, 0)
 
 # Game Variables
 screen_width = 500
@@ -96,6 +100,30 @@ for i in range(5):
     enemy = Enemy(row1_color,85,15)
     enemy.rect.x = 13 + i* 95
     enemy.rect.y = 60
+    all_enemy_list.add(enemy)
+    enemy_blocks.add(enemy)
+for i in range(5):
+    enemy = Enemy(row2_color,85,15)
+    enemy.rect.x = 13 + i* 95
+    enemy.rect.y = 110
+    all_enemy_list.add(enemy)
+    enemy_blocks.add(enemy)
+for i in range(5):
+    enemy = Enemy(row3_color,85,15)
+    enemy.rect.x = 13 + i* 95
+    enemy.rect.y = 160
+    all_enemy_list.add(enemy)
+    enemy_blocks.add(enemy)
+for i in range(5):
+    enemy = Enemy(row4_color,85,15)
+    enemy.rect.x = 13 + i* 95
+    enemy.rect.y = 210
+    all_enemy_list.add(enemy)
+    enemy_blocks.add(enemy)
+for i in range(5):
+    enemy = Enemy(row5_color,85,15)
+    enemy.rect.x = 13 + i* 95
+    enemy.rect.y = 260
     all_enemy_list.add(enemy)
     enemy_blocks.add(enemy)
 
