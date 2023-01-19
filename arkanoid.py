@@ -47,7 +47,7 @@ class Ball(pygame.sprite.Sprite):
           
     def bounce(self):
         self.speed[0] = -self.speed[0]
-        self.speed[1] = randint(-7,7)
+        self.speed[1] = random.choice((-7,7))
 
 class Enemy(pygame.sprite.Sprite):
     def __init__(self, color, width, height):
@@ -160,7 +160,7 @@ while game_active:
     
 
     if ball.rect.x>=480:
-        ball.speed[0] = -ball.speed[0]
+        ball.speed[0] *= -1
     if ball.rect.x<=0:
         ball.speed[0] = -ball.speed[0]
     if ball.rect.y>screen_height:
@@ -205,6 +205,9 @@ while game_active:
     # Score
     text = font.render("Score: " + str(score), 1, light_grey)
     screen.blit(text, (20,10))
+
+    text = font.render("Lives: " + str(lives), 1, light_grey)
+    screen.blit(text, (400,10))
 
     # Block + Ball Visualizer
     all_enemy_list.draw(screen)
